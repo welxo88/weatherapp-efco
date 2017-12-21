@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 
-const TransferWebpackPlugin = require('transfer-webpack-plugin');
+//const TransferWebpackPlugin = require('transfer-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -32,12 +33,11 @@ module.exports = {
     ],
   },
   plugins: [
+    
     new HtmlWebpackPlugin({ template: 'src/public/index.html' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new TransferWebpackPlugin([
-      { from: 'src/public' },
-    ], '.'),
+    new CopyWebpackPlugin([ 'src/public'], {ignore:['index.html']}),
     new webpack.DefinePlugin({
       'process.env': {
         ENDPOINT: JSON.stringify(process.env.ENDPOINT || 'http://0.0.0.0:9000/api'),
