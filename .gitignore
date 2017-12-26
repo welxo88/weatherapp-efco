@@ -9,3 +9,6 @@ node_modules
 
 # api key
 backend/src/api_key.js
+
+# front build
+frontent/build
