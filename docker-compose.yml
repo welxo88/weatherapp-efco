@@ -2,6 +2,8 @@ backend:
   build: ./backend
   ports:
    - "8080"
+  volumes:
+   - .:/home/app/api
 
 frontend:
   build: ./frontend
@@ -9,3 +11,5 @@ frontend:
     - "8080"
   links:
     - backend:backend
+  volumes:
+   - .:/home/app
