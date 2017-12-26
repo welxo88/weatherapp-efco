@@ -1,39 +1,11 @@
-# Backend API service example, uses nodemon to keep server alive and watch for changes.
-backendapi:
-  # Tells docker-compose where ./backendapi/Dockerfile is
+backend:
   build: ./backend
-  # Allows live editing of ./backendapi/app
-  volumes:
-    - ./backendapi/app:/app
-  # Launch Nodemon, using 
-  # -L legacy file watching for compatibility with boot2docker / docker-machine. 
-  # --watch defined to avoid watching the whole container and causing high CPU usage
-  command: nodemon -L --watch /src/app/ /src/app/index.js
-  # Expose a port to access the server locally
   ports:
-   - "3000:3000"
-  # So we don't have to manually restart if we cause any bugs while developing.
-  restart: on-failure
+   - "8080"
 
-# Frontend Node.js powered app example
 frontend:
   build: ./frontend
-  volumes:
-    - ./frontend/app:/app
-  # Set the working_dir so we can then execute commands
-  working_dir: /app
-  # This executes a script defined in package.json
-  # Example React.js & browserify / watchify script compatible with Docker:
-  # Setting --poll enables polling of files, 1000ms seems to not cause too higher CPU usage, set this to a higher figure if it does for you.
-  # See https://github.com/substack/watchify#options for more info
-  # "watchify src/App.jsx -d -t [reactify --es6] --poll=1000 -o public/bundle/app.js -v"
-  command: npm run start
-  # Expose a different port from the backendapi
   ports:
-    - "3002:3002"
-  # Linking another service automatically writes an entry in the /etc/hosts file in this container.
-  # So to access the backend api server-side we can use http://backendapi:3000 or to access client-side we can use http://localhost:3000
+    - "8080"
   links:
     - backend:backend
-  # Restart automatically when we break things
-  restart: on-failure
