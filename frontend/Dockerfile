@@ -1,17 +1,17 @@
 FROM node:8
 
-# Setup
-RUN mkdir -p /usr/src/app
-COPY . /usr/src/app
-WORKDIR /usr/src/app
+COPY .npmrc .npmrc  
+COPY package.json package.json
+COPY webpack.config.js webpack.config.js
+COPY . .
 
 RUN npm i
-RUN npm i webpack -g
 
-RUN npm run build
+ENV PORT=8000
 
-ENV NODE_ENV=production
-ENV PORT=8080
+EXPOSE 8000
 
-CMD ["serve", "-s", "build"]
-EXPOSE 8080
+#FOR DEV PURPOSES ONLY
+#OTHERWISE RUN npm run build outside container, and copy build files
+#AND attach nginx container to serve static files
+ENTRYPOINT npm run start

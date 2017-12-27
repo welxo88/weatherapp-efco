@@ -1,14 +1,13 @@
 FROM node:8
 
-# Setup
-RUN mkdir -p /usr/src/app/api
-COPY . /usr/src/app/api
-WORKDIR /usr/src/app/api
+COPY .npmrc .npmrc  
+COPY package.json package.json
 
 RUN npm i;
 
-ENV NODE_ENV=production
-ENV PORT=8080
+COPY . .
 
-CMD ["node", "index.js"]
-EXPOSE 8080
+ENV PORT=9000
+
+CMD ["node", "src/index.js"]
+EXPOSE 9000
