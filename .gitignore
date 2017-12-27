@@ -11,7 +11,7 @@ node_modules
 backend/src/api_key.js
 
 # front build
-frontent/build
+frontend/build
 
 #package version not locked
 package-lock.json
