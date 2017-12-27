@@ -1,17 +1,8 @@
-FROM node:8
+FROM nginx
+COPY ./build /html
 
-COPY .npmrc .npmrc  
-COPY package.json package.json
-COPY webpack.config.js webpack.config.js
-COPY . .
+ENV PORT=80
 
-RUN npm i
+EXPOSE 80
 
-ENV PORT=8000
-
-EXPOSE 8000
-
-#FOR DEV PURPOSES ONLY
-#OTHERWISE RUN npm run build outside container, and copy build files
-#AND attach nginx container to serve static files
-ENTRYPOINT npm run start
+CMD ["nginx"]
