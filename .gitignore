@@ -9,6 +9,7 @@ node_modules
 
 # api key
 backend/src/api_key.js
+docker-compose.yml
 
 # front build
 frontend/build

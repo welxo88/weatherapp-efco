@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  weatherapp_backend:
+    build: ./backend
+    ports: 
+      - "9000:9000"
+    container_name: weatherapp_backend
+    environment:
+      - NODE_ENV=production
+      - APPID=""
+      - MAP_ENDPOINT="http://api.openweathermap.org/data/2.5"
+      - TARGET_CITY="Helsinki,fi"
+      - PORT=9000
+  weatherapp_frontend:
+    build: ./frontend
+    ports: 
+      - "80:80"
+    container_name: weatherapp_frontend
+    links:
+      - weatherapp_backend
+    environment:
+      - ENDPOINT="/api/"
