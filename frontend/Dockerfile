@@ -1,8 +1,8 @@
 FROM nginx
-COPY ./build /html
+COPY ./build /usr/share/nginx/html
 
 ENV PORT=80
 
 EXPOSE 80
 
-CMD ["nginx"]
+CMD ["nginx", "-g", "daemon off;"]
