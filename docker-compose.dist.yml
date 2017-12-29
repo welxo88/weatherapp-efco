@@ -2,22 +2,36 @@ version: '3'
 
 services:
   weatherapp_backend:
+    depends_on:
+      - weatherapp_proxy
     build: ./backend
     ports: 
       - "9000:9000"
     container_name: weatherapp_backend
     environment:
-      - NODE_ENV=production
-      - APPID=""
-      - MAP_ENDPOINT="http://api.openweathermap.org/data/2.5"
-      - TARGET_CITY="Helsinki,fi"
-      - PORT=9000
+      - APPID=YOUR_WEATHER_API_ID_TOKEN
+      - MAP_ENDPOINT=http://api.openweathermap.org/data/2.5
+      - TARGET_CITY=Helsinki,fi
+    restart: always
+
   weatherapp_frontend:
-    build: ./frontend
+    depends_on:
+      - weatherapp_proxy
+    build: 
+      context: ./frontend
+      args:
+      - ENDPOINT=api
+      - PORT=8000
     ports: 
-      - "80:80"
+      - "8000:8000"
     container_name: weatherapp_frontend
     links:
       - weatherapp_backend
-    environment:
-      - ENDPOINT="/api/"
+    restart: always
+
+  weatherapp_proxy:
+    build: ./proxy
+    ports: 
+      - "80:80"
+    container_name: weatherapp_proxy
+    restart: always
