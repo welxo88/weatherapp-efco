@@ -29,6 +29,10 @@ services:
       - weatherapp_backend
     restart: always
 
+# !!! backend and frontend ports are hardwired in nginx config file !!!
+# possible workarounds to adjust ports according to docker env-vars 
+#  1. openresty/lua/ plugin for nginx
+#  2. add shell run command in dockerfile to adjust nginx config file during build
   weatherapp_proxy:
     build: ./proxy
     ports: 
