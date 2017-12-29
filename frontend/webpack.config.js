@@ -45,3 +45,5 @@ module.exports = {
     }),
   ],
 };
+console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+console.log('process.env.ENDPOINT: ' + process.env.ENDPOINT);
